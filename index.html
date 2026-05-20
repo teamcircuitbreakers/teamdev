@@ -1,219 +1,1936 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Circuit Breakers - Learn, Build, Innovate</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Tripzo | Advanced Travel & Tourism</title>
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
+        /* ==========================================================================
+           1. CSS VARIABLES & THEME SETUP
+           ========================================================================== */
+        :root {
+            /* Brand Colors based on Logo */
+            --deep-blue: #0a2240;
+            --light-blue: #34b4c7;
+            --pure-white: #ffffff;
+            
+            /* Extended Palette for UI */
+            --bg-color: #f8f9fa;
+            --text-dark: #1a1a1a;
+            --text-muted: #6c757d;
+            --overlay-dark: rgba(10, 34, 64, 0.7);
+            --overlay-light: rgba(255, 255, 255, 0.85);
+            
+            /* Typography */
+            --font-main: 'Poppins', sans-serif;
+            --font-heading: 'Playfair Display', serif;
+            
+            /* Transitions & Shadows */
+            --transition-fast: 0.3s ease;
+            --transition-slow: 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --shadow-sm: 0 4px 6px rgba(10, 34, 64, 0.05);
+            --shadow-md: 0 10px 30px rgba(10, 34, 64, 0.1);
+            --shadow-lg: 0 20px 40px rgba(10, 34, 64, 0.15);
+            
+            /* Layout */
+            --container-width: 1280px;
+            --section-padding: 100px 0;
+        }
+
+        /* ==========================================================================
+           2. RESET & GLOBAL STYLES
+           ========================================================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: var(--font-main);
+            color: var(--text-dark);
+            background-color: var(--pure-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+            width: 100%;
         }
-        .fade-in-section {
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-heading);
+            color: var(--deep-blue);
+            line-height: 1.2;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: var(--light-blue);
+            border-radius: 2px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            border: none;
+            outline: none;
+            font-family: var(--font-main);
+        }
+
+        .btn-primary {
+            background-color: var(--light-blue);
+            color: var(--pure-white);
+            box-shadow: 0 4px 15px rgba(52, 180, 199, 0.3);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--deep-blue);
+            box-shadow: 0 6px 20px rgba(10, 34, 64, 0.3);
+            transform: translateY(-2px);
+            color: var(--pure-white);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--deep-blue);
+            border: 2px solid var(--deep-blue);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--deep-blue);
+            color: var(--pure-white);
+        }
+
+        /* ==========================================================================
+           3. ADVANCED BACKGROUND BLENDING (NATURE VIBES)
+           ========================================================================== */
+        .blended-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -2;
+            /* Multiple backgrounds to blend mountains and greenery smoothly */
+            background: 
+                linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.9) 100%),
+                url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center top / cover no-repeat,
+                url('https://images.unsplash.com/photo-1511497584788-876760111969?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center bottom / cover no-repeat;
+            background-blend-mode: normal, overlay;
+            filter: brightness(1.05) contrast(1.1);
+        }
+
+        /* A solid white background that fades in below the hero to keep content readable */
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(to bottom, transparent 0%, var(--pure-white) 15vh, var(--pure-white) 100%);
+            margin-top: 100vh; /* Pushes content below hero */
+        }
+
+        /* ==========================================================================
+           4. GLASSMORPHISM HEADER & NAVIGATION
+           ========================================================================== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: var(--transition-slow);
+            padding: 20px 0;
+            background: transparent;
+        }
+
+        header.scrolled {
+            padding: 10px 0;
+            background: var(--overlay-light);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* SMART ZOOM LOGO CONTAINER (Header) */
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--pure-white);
+            padding: 8px 22px;
+            border-radius: 50px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: var(--transition-fast);
+        }
+
+        /* Crop out the 1:1 whitespace by enforcing a wide aspect ratio */
+        .logo img {
+            width: 140px;
+            height: 42px;
+            object-fit: cover;
+            object-position: center;
+            transition: var(--transition-fast);
+        }
+
+        header.scrolled .logo {
+            padding: 6px 18px;
+        }
+
+        header.scrolled .logo img {
+            width: 115px;
+            height: 32px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 35px;
+        }
+
+        .nav-link {
+            position: relative;
+            font-weight: 500;
+            color: var(--deep-blue);
+            font-size: 1.05rem;
+            transition: var(--transition-fast);
+        }
+
+        .nav-link:hover {
+            color: var(--light-blue);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--light-blue);
+            transition: var(--transition-fast);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Dropdown Menu */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 150%;
+            left: 0;
+            background: var(--pure-white);
+            min-width: 220px;
+            box-shadow: var(--shadow-lg);
+            border-radius: 10px;
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            visibility: hidden;
+            transform: translateY(15px);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            padding: 10px 0;
+            z-index: 100;
+            border: 1px solid rgba(52, 180, 199, 0.1);
         }
-        .fade-in-section.is-visible {
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+            top: 100%;
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 10px 20px;
+            color: var(--deep-blue);
+            font-size: 0.95rem;
+            transition: var(--transition-fast);
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(52, 180, 199, 0.1);
+            color: var(--light-blue);
+            padding-left: 25px;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--deep-blue);
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        /* ==========================================================================
+           5. HERO SECTION & SMART SEARCH
+           ========================================================================== */
+        .hero {
+            position: fixed; /* Fixed behind content */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            z-index: 0;
+        }
+
+        .hero-content {
+            max-width: 850px;
+            padding: 20px;
+            z-index: 2;
+            transform: translateY(-40px);
+            background: transparent;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            border-radius: 0;
+            box-shadow: none;
+            border: none;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            color: var(--deep-blue);
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease forwards;
+            -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.9);
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.9), 0 0 30px rgba(255, 255, 255, 0.6);
+        }
+
+        .hero h1 span {
+            color: var(--light-blue);
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.9);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--deep-blue);
+            margin-bottom: 40px;
+            font-weight: 700;
+            animation: fadeInUp 1s ease 0.2s forwards;
+            opacity: 0;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 1), 0 0 20px rgba(255, 255, 255, 0.8);
+        }
+
+        /* Smart Search Bar & Auto-Suggestions */
+        .search-container {
+            position: relative;
+            max-width: 650px;
+            margin: 0 auto;
+            background: var(--pure-white);
+            border-radius: 50px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            box-shadow: var(--shadow-md);
+            animation: fadeInUp 1s ease 0.4s forwards;
+            opacity: 0;
+            border: 1px solid rgba(52, 180, 199, 0.2);
+            z-index: 50; /* Bring above hero */
+        }
+
+        .search-container input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 15px 25px;
+            font-size: 1.1rem;
+            font-family: var(--font-main);
+            color: var(--deep-blue);
+            outline: none;
+        }
+
+        .search-container input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .search-container .search-btn {
+            background-color: var(--deep-blue);
+            color: var(--pure-white);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .search-container .search-btn:hover {
+            background-color: var(--light-blue);
+            transform: scale(1.05);
+        }
+
+        /* Search Suggestions Dropdown */
+        .search-suggestions {
+            position: absolute;
+            top: 110%;
+            left: 0;
+            width: 100%;
+            background: var(--pure-white);
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            display: none;
+            flex-direction: column;
+            border: 1px solid rgba(52, 180, 199, 0.2);
+            max-height: 40vh;
+            overflow-y: auto;
+        }
+
+        /* Styling the scrollbar for suggestions */
+        .search-suggestions::-webkit-scrollbar {
+            width: 6px;
+        }
+        .search-suggestions::-webkit-scrollbar-thumb {
+            background-color: var(--light-blue);
+            border-radius: 10px;
+        }
+
+        /* Stops background content from scrolling while searching */
+        body.search-active {
+            overflow: hidden;
+        }
+
+        .search-suggestions.active {
+            display: flex;
+        }
+
+        .suggestion-item {
+            padding: 15px 25px;
+            text-align: left;
+            color: var(--deep-blue);
+            font-family: var(--font-main);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
+        }
+
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+
+        .suggestion-item:hover {
+            background-color: rgba(52, 180, 199, 0.1);
+            color: var(--light-blue);
+            padding-left: 35px;
+        }
+
+        /* ==========================================================================
+           6. ABOUT & ZIGZAG LISTINGS (FRAMING EFFECTS)
+           ========================================================================== */
+        .destinations-section {
+            padding: var(--section-padding);
+            background-color: var(--pure-white);
+            position: relative;
+        }
+
+        .zigzag-row {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            margin-bottom: 100px;
+        }
+
+        .zigzag-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .zigzag-row:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .zigzag-img {
+            flex: 1;
+            position: relative;
+        }
+
+        .framed-image {
+            position: relative;
+            z-index: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        .framed-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .framed-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .zigzag-img::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: 20px;
+            bottom: 20px;
+            border: 3px solid var(--light-blue);
+            border-radius: 10px;
+            z-index: 0;
+            transition: var(--transition-slow);
+        }
+
+        .zigzag-row:nth-child(even) .zigzag-img::before {
+            left: 20px;
+            right: -20px;
+        }
+
+        .zigzag-img:hover::before {
+            top: -10px;
+            left: -10px;
+            right: 10px;
+            bottom: 10px;
+        }
+
+        .zigzag-row:nth-child(even) .zigzag-img:hover::before {
+            left: 10px;
+            right: -10px;
+        }
+
+        .zigzag-content {
+            flex: 1;
+        }
+
+        .location-tag {
+            display: inline-block;
+            background-color: rgba(52, 180, 199, 0.1);
+            color: var(--light-blue);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .zigzag-content h3 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .zigzag-content p {
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            font-size: 1.05rem;
+        }
+
+        .features-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .features-list li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+            color: var(--deep-blue);
+            font-weight: 500;
+        }
+
+        .features-list li i {
+            color: var(--light-blue);
+        }
+
+        /* ==========================================================================
+           7. HARDCODED TOUR PACKAGES (SMART GRID & ALIGNMENT)
+           ========================================================================== */
+        .packages-section {
+            padding: var(--section-padding);
+            background-color: var(--bg-color);
+        }
+
+        .packages-grid {
+            display: grid;
+            /* Auto-fit makes elements expand intelligently to fill the whole area */
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+        }
+
+        .package-card {
+            background: var(--pure-white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-slow);
+            position: relative;
+            /* Flex layout to enforce perfect button alignment */
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .package-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .package-img {
+            height: 250px;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .package-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .package-card:hover .package-img img {
+            transform: scale(1.1);
+        }
+
+        .package-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--light-blue);
+            color: var(--pure-white);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .package-content {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1; /* Pushes footer down naturally */
+        }
+
+        .package-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+
+        .package-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .package-meta i {
+            color: var(--light-blue);
+        }
+
+        .package-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            transition: var(--transition-fast);
+        }
+
+        .package-card:hover .package-content h3 {
+            color: var(--light-blue);
+        }
+
+        .package-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+            line-height: 1.7;
+        }
+
+        .package-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: auto; /* Absolute bottom alignment regardless of text height */
+            border-top: 1px solid rgba(0,0,0,0.05);
+            padding-top: 20px;
+        }
+
+        .package-price {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .price-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .price-amount {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--deep-blue);
+        }
+
+        .price-amount span {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--text-muted);
+        }
+
+        /* ==========================================================================
+           8. ADVANCED SLIDESHOW GALLERY
+           ========================================================================== */
+        .gallery-section {
+            padding: var(--section-padding);
+            background-color: var(--deep-blue);
+            color: var(--pure-white);
+            overflow: hidden;
+        }
+
+        .gallery-section .section-header h2,
+        .gallery-section .section-header p {
+            color: var(--pure-white);
+        }
+
+        .gallery-slider {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            height: 500px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+            transform: scale(1.05);
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: scale(1);
+            z-index: 1;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slide-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 40px;
+            background: linear-gradient(to top, rgba(10, 34, 64, 0.9), transparent);
+            color: var(--pure-white);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.5s ease 0.5s;
+        }
+
+        .slide.active .slide-caption {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .slide-caption h3 {
+            color: var(--pure-white);
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+
+        .slider-controls {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 2;
+        }
+
+        .control-btn {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(5px);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            color: var(--pure-white);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .control-btn:hover {
+            background: var(--light-blue);
+        }
+
+        /* ==========================================================================
+           9. NEWSLETTER & FOOTER
+           ========================================================================== */
+        .newsletter-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--light-blue), #2394a6);
+            text-align: center;
+            color: var(--pure-white);
+        }
+
+        .newsletter-section h2 {
+            color: var(--pure-white);
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .newsletter-form {
+            max-width: 500px;
+            margin: 30px auto 0;
+            display: flex;
+            background: var(--pure-white);
+            border-radius: 50px;
+            padding: 5px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 50px;
+            outline: none;
+            font-family: var(--font-main);
+        }
+
+        .newsletter-form button {
+            background: var(--deep-blue);
+            color: var(--pure-white);
+            border: none;
+            padding: 0 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition-fast);
+        }
+
+        .newsletter-form button:hover {
+            background: #113663;
+        }
+
+        footer {
+            background-color: var(--deep-blue);
+            color: var(--pure-white);
+            padding: 80px 0 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        /* Reverted footer logo to 1:1 original */
+        .footer-about img {
+            width: 120px;
+            height: auto;
+            object-fit: contain;
+            margin-bottom: 20px;
+            background: var(--pure-white);
+            border-radius: 15px;
+            padding: 15px;
+        }
+
+        .footer-about p {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-fast);
+        }
+
+        .social-links a:hover {
+            background: var(--light-blue);
+            transform: translateY(-3px);
+        }
+
+        .footer-links h4 {
+            color: var(--pure-white);
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-links h4::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--light-blue);
+        }
+
+        .footer-links ul li {
+            margin-bottom: 15px;
+        }
+
+        .footer-links ul li a {
+            color: rgba(255,255,255,0.7);
+            transition: var(--transition-fast);
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .footer-links ul li a:hover {
+            color: var(--light-blue);
+            transform: translateX(5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+        }
+
+        /* ==========================================================================
+           10. LEGAL MODAL & ANIMATIONS
+           ========================================================================== */
+        /* Modal Overlay & Mini-card styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(10, 34, 64, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-fast);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-card {
+            background: var(--pure-white);
+            width: 90%;
+            max-width: 600px;
+            border-radius: 20px;
+            padding: 40px;
+            position: relative;
+            transform: scale(0.9);
+            transition: var(--transition-fast);
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .modal-overlay.active .modal-card {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(52, 180, 199, 0.1);
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            color: var(--deep-blue);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: var(--light-blue);
+            color: var(--pure-white);
+            transform: rotate(90deg);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
             opacity: 1;
             transform: translateY(0);
         }
-        /* Style for the policy sections */
-        .policy-section {
-            transition: all 0.5s ease-in-out;
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* ==========================================================================
+           11. RESPONSIVE DESIGN
+           ========================================================================== */
+        @media (max-width: 1024px) {
+            .hero h1 { font-size: 4rem; }
+            .zigzag-row { gap: 40px; }
+            .zigzag-content h3 { font-size: 2rem; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn { display: block; }
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 300px;
+                height: 100vh;
+                background: var(--pure-white);
+                flex-direction: column;
+                justify-content: center;
+                box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+                transition: 0.4s ease;
+                z-index: 1000;
+            }
+            .nav-links.active { right: 0; }
+            .nav-link { font-size: 1.2rem; }
+            .dropdown-menu {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                box-shadow: none;
+                transform: none;
+                background: rgba(0,0,0,0.02);
+                border: none;
+                display: none;
+            }
+            .dropdown:hover .dropdown-menu { display: block; }
+            
+            .hero-content { padding: 15px; transform: translateY(-20px); }
+            .hero h1 { font-size: 3.2rem; -webkit-text-stroke: 1px rgba(255, 255, 255, 0.9); }
+            .hero p { font-size: 1.1rem; }
+            
+            .zigzag-row, .zigzag-row:nth-child(even) {
+                flex-direction: column;
+                margin-bottom: 50px;
+                gap: 20px;
+            }
+            .zigzag-content { width: 100%; }
+            .zigzag-img::before, .zigzag-row:nth-child(even) .zigzag-img::before {
+                display: none; /* Simplify for mobile */
+            }
+            
+            .gallery-slider { height: 350px; }
+            .footer-grid { grid-template-columns: 1fr; }
+
+            /* Responsive Search Box */
+            .search-container {
+                flex-direction: column;
+                border-radius: 20px;
+                padding: 15px;
+            }
+            .search-container input {
+                width: 100%;
+                text-align: center;
+                margin-bottom: 10px;
+                padding: 10px;
+            }
+            .search-container .search-btn {
+                width: 100%;
+                border-radius: 10px;
+            }
+            .search-suggestions {
+                top: 100%; /* Adjust dropdown on mobile */
+                border-radius: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 2.5rem; }
+            .section-header h2 { font-size: 2.2rem; }
+            .packages-grid { grid-template-columns: 1fr; }
+            .features-list { grid-template-columns: 1fr; }
+            .modal-card { padding: 30px 20px; width: 95%; }
+
+            /* Newsletter Responsive Fix */
+            .newsletter-form {
+                flex-direction: column;
+                background: transparent;
+                box-shadow: none;
+            }
+            .newsletter-form input {
+                border-radius: 10px;
+                margin-bottom: 15px;
+                width: 100%;
+                padding: 15px;
+            }
+            .newsletter-form button {
+                width: 100%;
+                border-radius: 10px;
+                padding: 15px;
+            }
         }
     </style>
 </head>
-<body class="bg-slate-900 text-gray-200">
+<body>
 
-    <!-- Header & Navigation -->
-    <header class="bg-slate-900/80 backdrop-blur-sm fixed top-0 left-0 right-0 z-50">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-white">
-                <span class="text-green-400">Circuit</span>Breakers
+    <!-- 1. Background Layer (Fixed & Blended) -->
+    <div class="blended-background"></div>
+
+    <!-- 2. Header & Navigation -->
+    <header id="header">
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <img src="https://res.cloudinary.com/dpoubdg6d/image/upload/v1779225705/Tripzo_logo_nb5diu.png" alt="Tripzo Logo">
             </a>
-            <nav class="hidden md:flex space-x-8">
-                <a href="#ecosystem" class="hover:text-green-400 transition-colors">Our Ecosystem</a>
-                <a href="#mission" class="hover:text-green-400 transition-colors">Our Mission</a>
-                <a href="#contact" class="hover:text-green-400 transition-colors">Contact</a>
+            
+            <nav>
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="#home" class="nav-link">Home</a></li>
+                    <li><a href="#destinations" class="nav-link">Attractions</a></li>
+                    <li class="dropdown">
+                        <a href="#packages" class="nav-link">Tours <i class="fas fa-chevron-down" style="font-size: 0.8rem;"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" class="dropdown-item">Kolkata Specials</a></li>
+                            <li><a href="#" class="dropdown-item">Pan India Tours</a></li>
+                            <li><a href="#" class="dropdown-item">Honeymoon Packages</a></li>
+                            <li><a href="#" class="dropdown-item">Adventure Trips</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#gallery" class="nav-link">Gallery</a></li>
+                    <li><a href="#contact" class="btn btn-primary" style="color:white;">Book Now</a></li>
+                </ul>
             </nav>
+            
+            <div class="mobile-menu-btn" id="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
         </div>
     </header>
 
-    <main>
-        <!-- Hero Section -->
-        <section class="min-h-screen flex items-center bg-cover bg-center pt-20" style="background-image: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 1)), url('https://placehold.co/1920x1080/0f172a/4ade80?text=Innovation+Hub');">
-            <div class="container mx-auto px-6 text-center">
-                <h1 class="text-4xl md:text-6xl font-bold text-white leading-tight mb-4 fade-in-section">Simplifying the World of Electronics</h1>
-                <p class="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-8 fade-in-section" style="transition-delay: 200ms;">
-                    We are building a complete ecosystem for students, teachers, and developers to learn, build, and innovate in electronics, IoT, and smart technology.
-                </p>
-                <div class="fade-in-section bg-green-500/10 border border-green-400 text-green-300 text-lg md:text-xl font-semibold py-4 px-8 rounded-lg inline-block" style="transition-delay: 400ms;">
-                    Coming Soon...
-                </div>
-            </div>
-        </section>
-
-        <!-- Ecosystem Section -->
-        <section id="ecosystem" class="py-20">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center mb-12 text-white fade-in-section">A Complete Tech Ecosystem</h2>
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    
-                    <div class="bg-slate-800 p-8 rounded-xl shadow-lg fade-in-section" style="transition-delay: 100ms;">
-                        <h3 class="text-2xl font-semibold mb-3 text-green-400">🔹 Dev Section</h3>
-                        <p class="text-gray-400">The creative hub where our R&D team designs, tests, and develops new smart devices and solutions. This is where innovation happens and ideas turn into real products.</p>
-                    </div>
-                    <div class="bg-slate-800 p-8 rounded-xl shadow-lg fade-in-section" style="transition-delay: 200ms;">
-                        <h3 class="text-2xl font-semibold mb-3 text-green-400">🔹 Teacher Section</h3>
-                        <p class="text-gray-400">A dedicated space for experienced mentors specializing in coding, circuits, and IoT to share expertise, guide learners, and provide hands-on training.</p>
-                    </div>
-                    <div class="bg-slate-800 p-8 rounded-xl shadow-lg fade-in-section" style="transition-delay: 300ms;">
-                        <h3 class="text-2xl font-semibold mb-3 text-green-400">🔹 Student Section</h3>
-                        <p class="text-gray-400">Affordable learning for enthusiasts at just ₹500/month. Get access to structured paths, mentorship, and practical exposure to real-world projects.</p>
-                    </div>
-                    <div class="bg-slate-800 p-8 rounded-xl shadow-lg fade-in-section" style="transition-delay: 400ms;">
-                        <h3 class="text-2xl font-semibold mb-3 text-green-400">🔹 Tech Library</h3>
-                        <p class="text-gray-400">Rent sensors, microcontrollers, books, and more for only ₹100/month. We make hands-on learning accessible to everyone, regardless of budget.</p>
-                    </div>
-                    <div class="bg-slate-800 p-8 rounded-xl shadow-lg fade-in-section" style="transition-delay: 500ms;">
-                        <h3 class="text-2xl font-semibold mb-3 text-green-400">🔹 Main Store</h3>
-                        <p class="text-gray-400">The commercial arm where our branded, R&D-developed products will be sold. Talented students and teachers can also feature their creations here.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Mission Section -->
-        <section id="mission" class="py-20 bg-slate-800">
-            <div class="container mx-auto px-6 text-center">
-                <div class="max-w-3xl mx-auto fade-in-section">
-                    <h2 class="text-3xl font-bold mb-4 text-white">More Than a Website, It's a Community</h2>
-                    <p class="text-gray-400">
-                        Together, these sections form a powerful loop of research, learning, practical exposure, and real-world application. Circuit Breakers is a thriving community where anyone can innovate, learn, and grow in the world of technology.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- NEW: Privacy Policy Section -->
-        <section id="privacy" class="py-20 policy-section hidden">
-            <div class="container mx-auto px-6">
-                 <div class="max-w-4xl mx-auto">
-                    <h2 class="text-3xl font-bold text-white mb-6">Privacy Policy</h2>
-                    <div class="space-y-4 text-gray-400">
-                        <p><strong>Last Updated: September 9, 2025</strong></p>
-                        <p>Circuit Breakers ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and share information about you when you use our website and services.</p>
-                        
-                        <h3 class="text-xl font-semibold text-white pt-4">1. Information We Collect</h3>
-                        <p>We collect information you provide directly to us, such as your name, email address, and phone number when you sign up for our services or contact us. When you make a payment, we use a third-party payment processor (Razorpay) and do not store your sensitive financial details like credit card numbers.</p>
-
-                        <h3 class="text-xl font-semibold text-white pt-4">2. How We Use Your Information</h3>
-                        <p>We use the information we collect to provide, maintain, and improve our services, process transactions, send you transactional information including confirmations and invoices, and communicate with you about our platform.</p>
-
-                        <h3 class="text-xl font-semibold text-white pt-4">3. Information Sharing</h3>
-                        <p>We do not sell your personal information. We may share information with third-party vendors and service providers that perform services for us, such as payment processing. We only share the information necessary for them to perform their functions.</p>
-
-                        <h3 class="text-xl font-semibold text-white pt-4">4. Contact Us</h3>
-                        <p>If you have any questions about this Privacy Policy, please contact us at <a href="mailto:pushkarbose1@gmail.com" class="text-green-400 hover:underline">pushkarbose1@gmail.com</a>.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- NEW: Terms of Service Section -->
-        <section id="terms" class="py-20 bg-slate-800 policy-section hidden">
-            <div class="container mx-auto px-6">
-                <div class="max-w-4xl mx-auto">
-                    <h2 class="text-3xl font-bold text-white mb-6">Terms of Service</h2>
-                    <div class="space-y-4 text-gray-400">
-                        <p><strong>Last Updated: September 9, 2025</strong></p>
-                        <p>By accessing or using the services of Circuit Breakers, you agree to be bound by these Terms of Service.</p>
-                        
-                        <h3 class="text-xl font-semibold text-white pt-4">1. Description of Services</h3>
-                        <p>Circuit Breakers provides an educational and e-commerce platform focused on electronics and IoT. Our services include monthly subscriptions to our Student Section and Tech Library, as well as products for sale in our Main Store.</p>
-
-                        <h3 class="text-xl font-semibold text-white pt-4">2. Payments and Subscriptions</h3>
-                        <p>Fees for our subscription services (Student Section, Tech Library) are billed on a monthly basis. All payments are processed through our third-party payment gateway, Razorpay.</p>
-                        
-                        <h3 class="text-xl font-semibold text-white pt-4">3. Refund and Cancellation Policy</h3>
-                        <p>All payments for digital services, including monthly subscriptions to the Student Section and Tech Library, are final and **non-refundable**. You may cancel your subscription at any time, but no refunds will be provided for partial months.</p>
-
-                        <h3 class="text-xl font-semibold text-white pt-4">4. Product Sales and Shipping</h3>
-                        <p>Our Main Store will feature products for sale. At this time, we are primarily focused on digital services and educational content. The sale and shipping of physical products are not yet active. Policies regarding physical product returns, refunds, and shipping will be made available when the Main Store is fully operational.</p>
-
-                        <h3 class="text-xl font-semibold text-white pt-4">5. Governing Law</h3>
-                        <p>These Terms shall be governed by the laws of India, without regard to its conflict of law provisions.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="py-20">
-            <div class="container mx-auto px-6 text-center">
-                <div class="max-w-2xl mx-auto fade-in-section">
-                    <h2 class="text-3xl font-bold text-white mb-4">Get Ready to Innovate</h2>
-                    <p class="text-gray-400 mb-8">
-                        Our platform is launching soon! For partnership inquiries, or to join our mailing list for launch updates, please get in touch. We're excited to build the future with you.
-                    </p>
-                    <div class="text-lg text-white">
-                        <p class="mb-2"><strong>Email:</strong> <a href="mailto:pushkarbose1@gmail.com" class="text-green-400 hover:underline">pushkarbose1@gmail.com</a></p>
-                        <p><strong>Phone:</strong> <a href="tel:+918910652873" class="text-green-400 hover:underline">+91 89106 52873</a></p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-slate-900 border-t border-slate-700">
-        <div class="container mx-auto px-6 py-8 text-center text-gray-400">
-            <p>&copy; 2025 Circuit Breakers. All Rights Reserved.</p>
-            <p class="text-sm mt-2">
-                <a href="#privacy" class="policy-link hover:text-green-400">Privacy Policy</a> | 
-                <a href="#terms" class="policy-link hover:text-green-400">Terms of Service</a>
-            </p>
-        </div>
-    </footer>
-
-    <script>
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-
-                if (targetElement.classList.contains('policy-section')) {
-                    targetElement.classList.remove('hidden');
-                }
+    <!-- 3. Hero Section (Transparent over fixed background) -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Discover the <span>Art of Nature</span></h1>
+            <p>Experience breathtaking landscapes, blended seamlessly with luxury and comfort. Find your perfect escape with Tripzo.</p>
+            
+            <!-- Smart Search Bar with Suggestions -->
+            <div class="search-container">
+                <i class="fas fa-map-marker-alt" style="color: var(--light-blue); font-size: 1.2rem; padding: 0 10px;"></i>
+                <input type="text" id="smart-search" placeholder="Search destinations..." autocomplete="off">
+                <button class="search-btn"><i class="fas fa-search"></i></button>
                 
-                targetElement.scrollIntoView({
-                    behavior: 'smooth'
+                <!-- Dropdown suggestions container -->
+                <div class="search-suggestions" id="search-suggestions">
+                    <!-- Javascript populates items here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Content Wrapper (Scrolls over the hero) -->
+    <div class="content-wrapper">
+        
+        <!-- Zigzag Destinations Section -->
+        <section class="destinations-section" id="destinations">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2>Featured Attractions</h2>
+                    <p>Explore the most beautiful tourism spots, starting from the cultural heart of Kolkata to the majestic landscapes across India.</p>
+                </div>
+
+                <!-- Destination 1: Victoria Memorial (Kolkata) -->
+                <div class="zigzag-row">
+                    <div class="zigzag-img reveal-left">
+                        <div class="framed-image">
+                            <!-- ✅ FIXED: Replaced broken URL with a guaranteed working Unsplash Image -->
+                            <img src="https://images.unsplash.com/photo-1558431382-27e303142255?auto=format&fit=crop&w=800&q=80" alt="Kolkata Heritage">
+                        </div>
+                    </div>
+                    <div class="zigzag-content reveal-right">
+                        <span class="location-tag">Kolkata, West Bengal</span>
+                        <h3>Victoria Memorial Hall</h3>
+                        <p>A stunning piece of British architecture in the heart of the City of Joy. Surrounded by lush green gardens, this marble monument is a must-visit for history and art lovers, offering a serene vibe amidst the bustling city.</p>
+                        <ul class="features-list">
+                            <li><i class="fas fa-camera"></i> Photography Spots</li>
+                            <li><i class="fas fa-leaf"></i> Lush Gardens</li>
+                            <li><i class="fas fa-landmark"></i> Heritage Museum</li>
+                            <li><i class="fas fa-clock"></i> 3-4 Hours Tour</li>
+                        </ul>
+                        <a href="#packages" class="btn btn-outline">View Local Tours</a>
+                    </div>
+                </div>
+
+                <!-- Destination 2: Darjeeling -->
+                <div class="zigzag-row">
+                    <div class="zigzag-img reveal-right">
+                        <div class="framed-image">
+                            <img src="https://unsplash.com/photos/0XG9U9REcxM/download?w=800" alt="Darjeeling">
+                        </div>
+                    </div>
+                    <div class="zigzag-content reveal-left">
+                        <span class="location-tag">Himalayas, West Bengal</span>
+                        <h3>Darjeeling Tea Gardens</h3>
+                        <p>Known as the 'Queen of the Himalayas', Darjeeling offers panoramic views of Mt. Kanchenjunga. Walk through the misty rolling tea estates, take a ride on the historic Toy Train, and breathe in the pure mountain air.</p>
+                        <ul class="features-list">
+                            <li><i class="fas fa-mountain"></i> Mountain Views</li>
+                            <li><i class="fas fa-train"></i> Toy Train Ride</li>
+                            <li><i class="fas fa-mug-hot"></i> Tea Tasting</li>
+                            <li><i class="fas fa-cloud"></i> Cool Climate</li>
+                        </ul>
+                        <a href="#packages" class="btn btn-outline">Explore Packages</a>
+                    </div>
+                </div>
+
+                <!-- Destination 3: Taj Mahal -->
+                <div class="zigzag-row">
+                    <div class="zigzag-img reveal-left">
+                        <div class="framed-image">
+                            <img src="https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=800&q=80" alt="Taj Mahal">
+                        </div>
+                    </div>
+                    <div class="zigzag-content reveal-right">
+                        <span class="location-tag">Agra, Uttar Pradesh</span>
+                        <h3>The Majestic Taj Mahal</h3>
+                        <p>Experience the ultimate symbol of love. Watch the white marble change colors from dawn to dusk. A masterpiece of Mughal architecture that stands proudly as one of the Seven Wonders of the World.</p>
+                        <ul class="features-list">
+                            <li><i class="fas fa-star"></i> 7 Wonders</li>
+                            <li><i class="fas fa-archway"></i> Mughal Architecture</li>
+                            <li><i class="fas fa-sun"></i> Sunrise View</li>
+                            <li><i class="fas fa-users"></i> Guided Tours</li>
+                        </ul>
+                        <a href="#packages" class="btn btn-outline">Discover Agra</a>
+                    </div>
+                </div>
+                
+                <!-- Destination 4: Kerala Backwaters -->
+                <div class="zigzag-row">
+                    <div class="zigzag-img reveal-right">
+                        <div class="framed-image">
+                            <img src="https://images.unsplash.com/photo-1593693397690-362cb9666fc2?auto=format&fit=crop&w=800&q=80" alt="Kerala">
+                        </div>
+                    </div>
+                    <div class="zigzag-content reveal-left">
+                        <span class="location-tag">Munnar & Alleppey, Kerala</span>
+                        <h3>God's Own Country</h3>
+                        <p>Drift peacefully on a traditional houseboat through the tranquil backwaters lined with palm trees. Then head to Munnar to witness endless hills carpeted with emerald-green tea plantations.</p>
+                        <ul class="features-list">
+                            <li><i class="fas fa-ship"></i> Houseboat Stays</li>
+                            <li><i class="fas fa-spa"></i> Ayurvedic Spa</li>
+                            <li><i class="fas fa-water"></i> Backwaters</li>
+                            <li><i class="fas fa-leaf"></i> Spice Gardens</li>
+                        </ul>
+                        <a href="#packages" class="btn btn-outline">Kerala Escapes</a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Dynamic Smart Grid Packages Section -->
+        <section class="packages-section" id="packages">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2>Exclusive Tour Packages</h2>
+                    <p>Curated itineraries with the best pricing. Choose your next adventure across the diverse landscapes of India.</p>
+                </div>
+
+                <div class="packages-grid">
+                    <!-- Package 1: Darjeeling -->
+                    <div class="package-card reveal">
+                        <div class="package-img">
+                            <span class="package-badge">Best Seller</span>
+                            <img src="https://unsplash.com/photos/0XG9U9REcxM/download?w=600" alt="Darjeeling">
+                        </div>
+                        <div class="package-content">
+                            <div class="package-meta">
+                                <span><i class="fas fa-clock"></i> 4 Days / 3 Nights</span>
+                                <span><i class="fas fa-map-marker-alt"></i> West Bengal</span>
+                            </div>
+                            <h3>Darjeeling</h3>
+                            <p class="package-desc">Escape to the misty hills. Includes Tiger Hill sunrise tour, historic Toy Train ride, and a stay in a premium heritage tea estate resort overlooking the Himalayas.</p>
+                            <div class="package-footer">
+                                <div class="package-price">
+                                    <span class="price-label">Starting from</span>
+                                    <span class="price-amount">₹12,499<span>/person</span></span>
+                                </div>
+                                <button class="btn btn-primary">Book</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Package 2: Digha -->
+                    <div class="package-card reveal" style="transition-delay: 0.1s;">
+                        <div class="package-img">
+                            <img src="https://images.unsplash.com/photo-1506461883276-594a12b11cf3?auto=format&fit=crop&w=600&q=80" alt="Digha Beach">
+                        </div>
+                        <div class="package-content">
+                            <div class="package-meta">
+                                <span><i class="fas fa-clock"></i> 3 Days / 2 Nights</span>
+                                <span><i class="fas fa-map-marker-alt"></i> West Bengal</span>
+                            </div>
+                            <h3>Digha</h3>
+                            <p class="package-desc">Relax by the shallow waves of the Bay of Bengal. Enjoy evening beachside walks, fresh local seafood, and a peaceful weekend getaway away from city life.</p>
+                            <div class="package-footer">
+                                <div class="package-price">
+                                    <span class="price-label">Starting from</span>
+                                    <span class="price-amount">₹4,999<span>/person</span></span>
+                                </div>
+                                <button class="btn btn-primary">Book</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Package 3: Puri -->
+                    <div class="package-card reveal" style="transition-delay: 0.2s;">
+                        <div class="package-img">
+                            <span class="package-badge">Spiritual</span>
+                            <img src="https://unsplash.com/photos/MTKT59YYn0c/download?w=600" alt="Puri">
+                        </div>
+                        <div class="package-content">
+                            <div class="package-meta">
+                                <span><i class="fas fa-clock"></i> 4 Days / 3 Nights</span>
+                                <span><i class="fas fa-map-marker-alt"></i> Odisha</span>
+                            </div>
+                            <h3>Puri</h3>
+                            <p class="package-desc">Experience divine spirituality at the Jagannath Temple, followed by relaxing days at the Golden Beach. Includes a special trip to the Konark Sun Temple.</p>
+                            <div class="package-footer">
+                                <div class="package-price">
+                                    <span class="price-label">Starting from</span>
+                                    <span class="price-amount">₹8,500<span>/person</span></span>
+                                </div>
+                                <button class="btn btn-primary">Book</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Package 4: Sundarbans -->
+                    <div class="package-card reveal">
+                        <div class="package-img">
+                            <img src="https://unsplash.com/photos/qay3lNDSHzc/download?w=600" alt="Sundarbans">
+                        </div>
+                        <div class="package-content">
+                            <div class="package-meta">
+                                <span><i class="fas fa-clock"></i> 3 Days / 2 Nights</span>
+                                <span><i class="fas fa-map-marker-alt"></i> West Bengal</span>
+                            </div>
+                            <h3>Sundarbans</h3>
+                            <p class="package-desc">Venture into the world's largest mangrove forest. Spot the Royal Bengal Tiger, crocodiles, and exotic birds on our luxury guided boat cruise.</p>
+                            <div class="package-footer">
+                                <div class="package-price">
+                                    <span class="price-label">Starting from</span>
+                                    <span class="price-amount">₹8,999<span>/person</span></span>
+                                </div>
+                                <button class="btn btn-primary">Book</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Package 5: Kerala -->
+                    <div class="package-card reveal" style="transition-delay: 0.1s;">
+                        <div class="package-img">
+                            <span class="package-badge">Romantic</span>
+                            <img src="https://images.unsplash.com/photo-1593693397690-362cb9666fc2?auto=format&fit=crop&w=600&q=80" alt="Kerala">
+                        </div>
+                        <div class="package-content">
+                            <div class="package-meta">
+                                <span><i class="fas fa-clock"></i> 6 Days / 5 Nights</span>
+                                <span><i class="fas fa-map-marker-alt"></i> South India</span>
+                            </div>
+                            <h3>Kerala</h3>
+                            <p class="package-desc">The ultimate romantic getaway. Includes 1 night in a premium Alleppey houseboat and 4 nights in luxury hill resorts surrounded by tea estates in Munnar.</p>
+                            <div class="package-footer">
+                                <div class="package-price">
+                                    <span class="price-label">Starting from</span>
+                                    <span class="price-amount">₹24,500<span>/person</span></span>
+                                </div>
+                                <button class="btn btn-primary">Book</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Package 6: Ladakh -->
+                    <div class="package-card reveal" style="transition-delay: 0.2s;">
+                        <div class="package-img">
+                            <img src="https://images.unsplash.com/photo-1581793745862-99fde7fa73d2?auto=format&fit=crop&w=600&q=80" alt="Ladakh">
+                        </div>
+                        <div class="package-content">
+                            <div class="package-meta">
+                                <span><i class="fas fa-clock"></i> 7 Days / 6 Nights</span>
+                                <span><i class="fas fa-map-marker-alt"></i> North India</span>
+                            </div>
+                            <h3>Ladakh</h3>
+                            <p class="package-desc">An adventure of a lifetime. Ride through high-altitude passes, visit ancient monasteries, and camp by the mesmerizing blue waters of Pangong Lake.</p>
+                            <div class="package-footer">
+                                <div class="package-price">
+                                    <span class="price-label">Starting from</span>
+                                    <span class="price-amount">₹32,000<span>/person</span></span>
+                                </div>
+                                <button class="btn btn-primary">Book</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Advanced Slideshow Gallery -->
+        <section class="gallery-section" id="gallery">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2>Visual Journey</h2>
+                    <p>Get inspired by the mesmerizing landscapes and cultural heritage waiting for you.</p>
+                </div>
+                
+                <div class="gallery-slider reveal">
+                    <!-- Slides (Replaced with 100% robust HD nature/travel images) -->
+                    <div class="slide active">
+                        <img src="https://images.unsplash.com/photo-1561361513-2d000a50f0dc?auto=format&fit=crop&w=1200&q=80" alt="Varanasi Ghats">
+                        <div class="slide-caption">
+                            <h3>Spiritual Varanasi, UP</h3>
+                            <p>Witness the enchanting beauty and culture at dusk.</p>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80" alt="Beach">
+                        <div class="slide-caption">
+                            <h3>Serene Coastlines</h3>
+                            <p>Relax by the shallow waves and crystal clear waters.</p>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80" alt="Mountains">
+                        <div class="slide-caption">
+                            <h3>Mystic Mountains</h3>
+                            <p>Trek through ancient landscapes and breathe fresh air.</p>
+                        </div>
+                    </div>
+
+                    <!-- Controls -->
+                    <div class="slider-controls">
+                        <button class="control-btn" id="prevSlide"><i class="fas fa-chevron-left"></i></button>
+                        <button class="control-btn" id="nextSlide"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="newsletter-section">
+            <div class="container reveal">
+                <h2>Join the Tripzo Community</h2>
+                <p>Subscribe to our newsletter for exclusive deals, nature-inspired travel guides, and secret destinations.</p>
+                <form class="newsletter-form" onsubmit="event.preventDefault();">
+                    <input type="email" placeholder="Enter your email address" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-about">
+                        <img src="https://res.cloudinary.com/dpoubdg6d/image/upload/v1779225705/Tripzo_logo_nb5diu.png" alt="Tripzo Logo">
+                        <p>Your premium travel partner, dedicated to bringing you closer to the art of nature. Discover hidden gems and luxury escapes with Tripzo.</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-links">
+                        <h4>Destinations</h4>
+                        <ul>
+                            <li><a href="#">Kolkata & Bengal</a></li>
+                            <li><a href="#">North East India</a></li>
+                            <li><a href="#">Kerala Backwaters</a></li>
+                            <li><a href="#">Rajasthan Royals</a></li>
+                            <li><a href="#">Himalayan Treks</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-links">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="#">About Us</a></li>
+                            <!-- Interactive Legal Links Trigger Modal -->
+                            <li><a class="legal-link" data-content="privacy">Privacy Policy</a></li>
+                            <li><a class="legal-link" data-content="terms">Terms & Conditions</a></li>
+                            <li><a class="legal-link" data-content="refund">Refund Policy</a></li>
+                            <li><a href="#">Travel Blog</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-links">
+                        <h4>Contact Details</h4>
+                        <ul>
+                            <!-- Specific Contact details requested -->
+                            <li style="display: flex; align-items: flex-start; gap: 10px;">
+                                <i class="fas fa-phone" style="margin-top: 5px; color: var(--light-blue);"></i> 
+                                <span>8910652873</span>
+                            </li>
+                            <li style="display: flex; align-items: flex-start; gap: 10px;">
+                                <i class="fas fa-envelope" style="margin-top: 5px; color: var(--light-blue);"></i> 
+                                <span>tripzo@gmail.com</span>
+                            </li>
+                            <li style="display: flex; align-items: flex-start; gap: 10px;">
+                                <i class="fas fa-map-marker-alt" style="margin-top: 5px; color: var(--light-blue);"></i> 
+                                <span>Dangadighila Ghantapukur, Bandipur, kolkata - 700119.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="footer-bottom">
+                    <p>&copy; 2026 Tripzo Travel & Tourism. All Rights Reserved. Crafted with nature vibes.</p>
+                </div>
+            </div>
+        </footer>
+
+    </div> <!-- End Content Wrapper -->
+
+    <!-- ==========================================================================
+         MODAL / MINI-CARD FOR LEGAL LINKS
+         ========================================================================== -->
+    <div class="modal-overlay" id="legal-modal">
+        <div class="modal-card">
+            <button class="modal-close" id="close-modal"><i class="fas fa-times"></i></button>
+            <h3 id="modal-title" style="margin-bottom: 20px; font-size: 1.8rem; color: var(--deep-blue); font-family: var(--font-heading);"></h3>
+            <div id="modal-body" style="color: var(--text-muted); line-height: 1.8; font-size: 0.95rem;"></div>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         JAVASCRIPT LOGIC (Interactive Features)
+         ========================================================================== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            /* --- 1. Sticky Glassmorphism Header --- */
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            /* --- 2. Mobile Menu Toggle --- */
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            const navLinks = document.getElementById('nav-links');
+            
+            mobileBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                const icon = mobileBtn.querySelector('i');
+                if (navLinks.classList.contains('active')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+
+            /* Close mobile menu on link click */
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    mobileBtn.querySelector('i').classList.replace('fa-times', 'fa-bars');
                 });
             });
-        });
 
-        // Intersection Observer for scroll-in animations
-        const sections = document.querySelectorAll('.fade-in-section');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
+            /* --- 3. Smart Search Typing Effect & Live Auto-Suggestions --- */
+            const searchInput = document.getElementById('smart-search');
+            const suggestionsBox = document.getElementById('search-suggestions');
+            
+            // Centralized place list for both packages and search
+            const availablePlaces = ["Darjeeling", "Digha", "Puri", "Sundarbans", "Kerala", "Ladakh"];
+            
+            // Dynamic engaging placeholders
+            const placeholders = [
+                "Want to go to 'Darjeeling'?",
+                "Let's Go to 'Puri'!",
+                "Ready to explore 'Sundarbans'?",
+                "How about 'Kerala'?",
+                "Discover the magic of 'Ladakh'!",
+                "Weekend getaway to 'Digha'?"
+            ];
+            
+            let pIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            let typingSpeed = 100;
+            let isFocused = false;
+
+            function typePlaceholder() {
+                if (isFocused) return; // Stop typing effect if user is focused
+
+                const currentText = placeholders[pIndex];
+                
+                if (isDeleting) {
+                    searchInput.setAttribute('placeholder', currentText.substring(0, charIndex - 1));
+                    charIndex--;
+                    typingSpeed = 50;
+                } else {
+                    searchInput.setAttribute('placeholder', currentText.substring(0, charIndex + 1));
+                    charIndex++;
+                    typingSpeed = 100;
+                }
+
+                if (!isDeleting && charIndex === currentText.length) {
+                    isDeleting = true;
+                    typingSpeed = 2000; // Pause at end
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    pIndex = (pIndex + 1) % placeholders.length;
+                    typingSpeed = 500; // Pause before new word
+                }
+
+                setTimeout(typePlaceholder, typingSpeed);
+            }
+
+            // Start typing effect
+            setTimeout(typePlaceholder, 1500);
+
+            // Handle Focus & Input for Live Suggestions
+            searchInput.addEventListener('focus', () => {
+                isFocused = true;
+                searchInput.setAttribute('placeholder', 'Search destinations...');
+                document.body.classList.add('search-active');
+            });
+
+            searchInput.addEventListener('blur', () => {
+                if(searchInput.value === '') {
+                    isFocused = false;
+                    setTimeout(typePlaceholder, 1000);
+                }
+                // FIXED: Removed the class removal from here to prevent the page from 
+                // scrolling over the hero section when interacting with the suggestions scrollbar.
+            });
+
+            searchInput.addEventListener('input', () => {
+                const val = searchInput.value.toLowerCase();
+                suggestionsBox.innerHTML = ''; // Clear previous
+                
+                if (!val) {
+                    suggestionsBox.classList.remove('active');
+                    return;
+                }
+                
+                const filtered = availablePlaces.filter(p => p.toLowerCase().includes(val));
+                
+                if (filtered.length > 0) {
+                    suggestionsBox.classList.add('active');
+                    filtered.forEach(place => {
+                        const div = document.createElement('div');
+                        div.className = 'suggestion-item';
+                        div.innerHTML = `<i class="fas fa-map-marker-alt" style="color:var(--light-blue)"></i> ${place}`;
+                        
+                        // Handle suggestion click
+                        div.addEventListener('click', () => {
+                            searchInput.value = place;
+                            suggestionsBox.classList.remove('active');
+                            document.body.classList.remove('search-active');
+                            // Smooth scroll to packages section
+                            document.getElementById('packages').scrollIntoView({ behavior: 'smooth' });
+                        });
+                        suggestionsBox.appendChild(div);
+                    });
+                } else {
+                    suggestionsBox.classList.remove('active');
                 }
             });
-        }, {
-            threshold: 0.1
-        });
 
-        sections.forEach(section => {
-            observer.observe(section);
+            // Hide suggestions if clicked outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.search-container')) {
+                    suggestionsBox.classList.remove('active');
+                    document.body.classList.remove('search-active');
+                }
+            });
+
+            /* --- 4. Scroll Reveal Animations (Intersection Observer) --- */
+            const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+            
+            const revealOptions = {
+                threshold: 0.15,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); // Only animate once
+                });
+            }, revealOptions);
+
+            revealElements.forEach(el => {
+                revealOnScroll.observe(el);
+            });
+
+            /* --- 5. Advanced Slideshow Logic --- */
+            const slides = document.querySelectorAll('.slide');
+            const btnNext = document.getElementById('nextSlide');
+            const btnPrev = document.getElementById('prevSlide');
+            let currentSlide = 0;
+            let slideInterval;
+
+            function showSlide(index) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                
+                if (index >= slides.length) {
+                    currentSlide = 0;
+                } else if (index < 0) {
+                    currentSlide = slides.length - 1;
+                } else {
+                    currentSlide = index;
+                }
+                
+                slides[currentSlide].classList.add('active');
+            }
+
+            function nextSlide() {
+                showSlide(currentSlide + 1);
+            }
+
+            function prevSlide() {
+                showSlide(currentSlide - 1);
+            }
+
+            // Event Listeners for controls
+            btnNext.addEventListener('click', () => {
+                nextSlide();
+                resetInterval();
+            });
+
+            btnPrev.addEventListener('click', () => {
+                prevSlide();
+                resetInterval();
+            });
+
+            // Auto advance
+            function startInterval() {
+                slideInterval = setInterval(nextSlide, 5000); // Change every 5 seconds
+            }
+
+            function resetInterval() {
+                clearInterval(slideInterval);
+                startInterval();
+            }
+
+            // Initialize slider
+            startInterval();
+
+            /* --- 6. Legal Modal Logic --- */
+            const legalContent = {
+                privacy: {
+                    title: "Privacy Policy",
+                    body: "<p>At Tripzo, your privacy is of utmost importance to us. We collect necessary information such as your name, contact details, and payment information exclusively for booking and improving our services.</p><br><p>We do not share your personal data with third-party marketers. Your data is encrypted and securely stored in compliance with standard data protection regulations.</p>"
+                },
+                terms: {
+                    title: "Terms & Conditions",
+                    body: "<p>By booking a tour with Tripzo, you agree to our standard terms of service. All bookings are subject to availability. Prices may vary based on peak seasons and last-minute changes from our airline and hotel partners.</p><br><p>Tripzo acts solely as a travel agent and is not liable for operational delays caused by natural disasters, strikes, or third-party vendor failures.</p>"
+                },
+                refund: {
+                    title: "Refund Policy",
+                    body: "<p>Cancellations made 15 days prior to the travel date are eligible for a 75% refund. Cancellations made between 7 to 14 days will receive a 50% refund.</p><br><p>No refunds will be issued for cancellations made less than 7 days prior to departure, or in the case of no-shows. Refund processing typically takes 7-10 business days.</p>"
+                }
+            };
+
+            const legalLinks = document.querySelectorAll('.legal-link');
+            const modalOverlay = document.getElementById('legal-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalBody = document.getElementById('modal-body');
+            const closeModalBtn = document.getElementById('close-modal');
+
+            // Open Modal
+            legalLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const contentType = link.getAttribute('data-content');
+                    if(legalContent[contentType]) {
+                        modalTitle.innerHTML = legalContent[contentType].title;
+                        modalBody.innerHTML = legalContent[contentType].body;
+                        modalOverlay.classList.add('active');
+                    }
+                });
+            });
+
+            // Close Modal on Button Click
+            closeModalBtn.addEventListener('click', () => {
+                modalOverlay.classList.remove('active');
+            });
+
+            // Close Modal on Outside Click
+            modalOverlay.addEventListener('click', (e) => {
+                if(e.target === modalOverlay) {
+                    modalOverlay.classList.remove('active');
+                }
+            });
+
         });
     </script>
 </body>
 </html>
-
