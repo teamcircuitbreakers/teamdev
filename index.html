@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tripzo | Advanced Travel & Tourism</title>
+    <title>TriQy | Advanced Travel & Tourism</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -237,8 +237,8 @@
 
         /* Crop out the 1:1 whitespace by enforcing a wide aspect ratio */
         .logo img {
-            width: 140px;
-            height: 42px;
+            width: 120px;
+            height: 35px;
             object-fit: cover;
             object-position: center;
             transition: var(--transition-fast);
@@ -249,8 +249,8 @@
         }
 
         header.scrolled .logo img {
-            width: 115px;
-            height: 32px;
+            width: 100px;
+            height: 28px;
         }
 
         .nav-links {
@@ -951,6 +951,7 @@
         .social-links {
             display: flex;
             gap: 15px;
+            border-radius: 50%;
         }
 
         .social-links a {
@@ -1237,7 +1238,7 @@
     <header id="header">
         <div class="container nav-container">
             <a href="#" class="logo">
-                <img src="https://res.cloudinary.com/dpoubdg6d/image/upload/v1779225705/Tripzo_logo_nb5diu.png" alt="Tripzo Logo">
+                <img src="https://res.cloudinary.com/dpoubdg6d/image/upload/v1779640096/1000294384-removebg-preview_yjwxux.png" alt="TriQy Logo">
             </a>
             
             <nav>
@@ -1245,12 +1246,13 @@
                     <li><a href="#home" class="nav-link">Home</a></li>
                     <li><a href="#destinations" class="nav-link">Attractions</a></li>
                     <li class="dropdown">
-                        <a href="#packages" class="nav-link">Tours <i class="fas fa-chevron-down" style="font-size: 0.8rem;"></i></a>
+                        <a href="#packages" class="nav-link">Tours & Packages <i class="fas fa-chevron-down" style="font-size: 0.8rem;"></i></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#" class="dropdown-item">Kolkata Specials</a></li>
-                            <li><a href="#" class="dropdown-item">Pan India Tours</a></li>
-                            <li><a href="#" class="dropdown-item">Honeymoon Packages</a></li>
-                            <li><a href="#" class="dropdown-item">Adventure Trips</a></li>
+                            <li><a href="packages/index.html" class="dropdown-item">Kolkata Specials</a></li>
+                            <li><a href="packages/index.html" class="dropdown-item">Pan India Tours</a></li>
+                            <li><a href="packages/index.html" class="dropdown-item">Honeymoon Packages</a></li>
+                            <li><a href="packages/index.html" class="dropdown-item">Adventure Trips</a></li>
+			    <li><a href="packages/index.html" class="dropdown-item">See all Packages</a></li>
                         </ul>
                     </li>
                     <li><a href="#gallery" class="nav-link">Gallery</a></li>
@@ -1268,7 +1270,7 @@
     <section class="hero" id="home">
         <div class="hero-content">
             <h1>Discover the <span>Art of Nature</span></h1>
-            <p>Experience breathtaking landscapes, blended seamlessly with luxury and comfort. Find your perfect escape with Tripzo.</p>
+            <p>Experience breathtaking landscapes, blended seamlessly with luxury and comfort. Find your perfect escape with TriQy.</p>
             
             <!-- Smart Search Bar with Suggestions -->
             <div class="search-container">
@@ -1481,51 +1483,13 @@
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Package 5: Kerala -->
-                    <div class="package-card reveal" style="transition-delay: 0.1s;">
-                        <div class="package-img">
-                            <span class="package-badge">Romantic</span>
-                            <img src="https://images.unsplash.com/photo-1593693397690-362cb9666fc2?auto=format&fit=crop&w=600&q=80" alt="Kerala">
-                        </div>
-                        <div class="package-content">
-                            <div class="package-meta">
-                                <span><i class="fas fa-clock"></i> 6 Days / 5 Nights</span>
-                                <span><i class="fas fa-map-marker-alt"></i> South India</span>
-                            </div>
-                            <h3>Kerala</h3>
-                            <p class="package-desc">The ultimate romantic getaway. Includes 1 night in a premium Alleppey houseboat and 4 nights in luxury hill resorts surrounded by tea estates in Munnar.</p>
-                            <div class="package-footer">
-                                <div class="package-price">
-                                    <span class="price-label">Starting from</span>
-                                    <span class="price-amount">₹24,500<span>/person</span></span>
-                                </div>
-                                <button class="btn btn-primary">Book</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Package 6: Ladakh -->
-                    <div class="package-card reveal" style="transition-delay: 0.2s;">
-                        <div class="package-img">
-                            <img src="https://images.unsplash.com/photo-1581793745862-99fde7fa73d2?auto=format&fit=crop&w=600&q=80" alt="Ladakh">
-                        </div>
-                        <div class="package-content">
-                            <div class="package-meta">
-                                <span><i class="fas fa-clock"></i> 7 Days / 6 Nights</span>
-                                <span><i class="fas fa-map-marker-alt"></i> North India</span>
-                            </div>
-                            <h3>Ladakh</h3>
-                            <p class="package-desc">An adventure of a lifetime. Ride through high-altitude passes, visit ancient monasteries, and camp by the mesmerizing blue waters of Pangong Lake.</p>
-                            <div class="package-footer">
-                                <div class="package-price">
-                                    <span class="price-label">Starting from</span>
-                                    <span class="price-amount">₹32,000<span>/person</span></span>
-                                </div>
-                                <button class="btn btn-primary">Book</button>
-                            </div>
-                        </div>
-                    </div>
+                <!-- Explore All Packages Button -->
+                <div style="text-align: center; margin-top: 60px;" class="reveal">
+                    <a href="packages/index.html" class="btn btn-outline" style="padding: 12px 40px; font-size: 1.1rem; border-width: 2px;">
+                        Explore All Packages <i class="fas fa-arrow-right" style="margin-left: 10px;"></i>
+                    </a>
                 </div>
             </div>
         </section>
@@ -1574,7 +1538,7 @@
         <!-- Newsletter Section -->
         <section class="newsletter-section">
             <div class="container reveal">
-                <h2>Join the Tripzo Community</h2>
+                <h2>Join the TriQy Community</h2>
                 <p>Subscribe to our newsletter for exclusive deals, nature-inspired travel guides, and secret destinations.</p>
                 <form class="newsletter-form" onsubmit="event.preventDefault();">
                     <input type="email" placeholder="Enter your email address" required>
@@ -1588,8 +1552,8 @@
             <div class="container">
                 <div class="footer-grid">
                     <div class="footer-about">
-                        <img src="https://res.cloudinary.com/dpoubdg6d/image/upload/v1779225705/Tripzo_logo_nb5diu.png" alt="Tripzo Logo">
-                        <p>Your premium travel partner, dedicated to bringing you closer to the art of nature. Discover hidden gems and luxury escapes with Tripzo.</p>
+                        <img src="https://res.cloudinary.com/dpoubdg6d/image/upload/v1779640096/1000294384-removebg-preview_yjwxux.png" alt="TriQy Logo">
+                        <p>Your premium travel partner, dedicated to bringing you closer to the art of nature. Discover hidden gems and luxury escapes with TriQy.</p>
                         <div class="social-links">
                             <a href="#"><i class="fab fa-facebook-f"></i></a>
                             <a href="#"><i class="fab fa-twitter"></i></a>
@@ -1631,7 +1595,7 @@
                             </li>
                             <li style="display: flex; align-items: flex-start; gap: 10px;">
                                 <i class="fas fa-envelope" style="margin-top: 5px; color: var(--light-blue);"></i> 
-                                <span>tripzo@gmail.com</span>
+                                <span>triqy@gmail.com</span>
                             </li>
                             <li style="display: flex; align-items: flex-start; gap: 10px;">
                                 <i class="fas fa-map-marker-alt" style="margin-top: 5px; color: var(--light-blue);"></i> 
@@ -1642,7 +1606,7 @@
                 </div>
                 
                 <div class="footer-bottom">
-                    <p>&copy; 2026 Tripzo Travel & Tourism. All Rights Reserved. Crafted with nature vibes.</p>
+                    <p>&copy; 2026 TriQy Travel & Tourism. All Rights Reserved. Crafted with nature vibes.</p>
                 </div>
             </div>
         </footer>
@@ -1887,11 +1851,11 @@
             const legalContent = {
                 privacy: {
                     title: "Privacy Policy",
-                    body: "<p>At Tripzo, your privacy is of utmost importance to us. We collect necessary information such as your name, contact details, and payment information exclusively for booking and improving our services.</p><br><p>We do not share your personal data with third-party marketers. Your data is encrypted and securely stored in compliance with standard data protection regulations.</p>"
+                    body: "<p>At TriQy, your privacy is of utmost importance to us. We collect necessary information such as your name, contact details, and payment information exclusively for booking and improving our services.</p><br><p>We do not share your personal data with third-party marketers. Your data is encrypted and securely stored in compliance with standard data protection regulations.</p>"
                 },
                 terms: {
                     title: "Terms & Conditions",
-                    body: "<p>By booking a tour with Tripzo, you agree to our standard terms of service. All bookings are subject to availability. Prices may vary based on peak seasons and last-minute changes from our airline and hotel partners.</p><br><p>Tripzo acts solely as a travel agent and is not liable for operational delays caused by natural disasters, strikes, or third-party vendor failures.</p>"
+                    body: "<p>By booking a tour with TriQy, you agree to our standard terms of service. All bookings are subject to availability. Prices may vary based on peak seasons and last-minute changes from our airline and hotel partners.</p><br><p>TriQy acts solely as a travel agent and is not liable for operational delays caused by natural disasters, strikes, or third-party vendor failures.</p>"
                 },
                 refund: {
                     title: "Refund Policy",
