@@ -174,7 +174,6 @@
             filter: brightness(1.05) contrast(1.1);
         }
 
-        /* Adjusted for the internal page - small hero height instead of 100vh */
         .content-wrapper {
             position: relative;
             z-index: 1;
@@ -522,7 +521,7 @@
         }
 
         /* ==========================================================================
-           7. MODALS & FORMS (BOOKING/SUCCESS)
+           7. MODALS & FORMS
            ========================================================================== */
         .modal-overlay {
             position: fixed;
@@ -558,6 +557,11 @@
             max-height: 90vh;
             overflow-y: auto;
             box-shadow: var(--shadow-lg);
+        }
+        
+        .modal-card-small {
+            max-width: 450px;
+            text-align: center;
         }
 
         .modal-overlay.active .modal-card {
@@ -633,6 +637,61 @@
             box-shadow: 0 0 0 3px rgba(52, 180, 199, 0.1);
         }
 
+        /* Stepper Control (New) */
+        .stepper-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 15px;
+            border: 1px solid rgba(10, 34, 64, 0.1);
+            border-radius: 10px;
+            background: #fdfdfd;
+        }
+
+        .stepper-btn {
+            background: rgba(52, 180, 199, 0.1);
+            border: none;
+            color: var(--deep-blue);
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-fast);
+        }
+
+        .stepper-btn:hover:not(.disabled) {
+            background: var(--light-blue);
+            color: var(--pure-white);
+        }
+
+        .stepper-btn.disabled {
+            background: rgba(10, 34, 64, 0.05);
+            color: rgba(10, 34, 64, 0.3);
+            cursor: not-allowed;
+        }
+
+        .stepper-value {
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--deep-blue);
+            width: 30px;
+            text-align: center;
+        }
+        
+        .guest-warning {
+            color: #e74c3c;
+            font-size: 0.8rem;
+            margin-top: -10px;
+            margin-bottom: 5px;
+            font-weight: 500;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
         .checkbox-group {
             display: flex;
             align-items: center;
@@ -655,6 +714,15 @@
             color: var(--deep-blue);
             font-weight: 600;
             font-size: 0.95rem;
+        }
+        
+        /* Multiple Checkbox Grid (For Transport Modal) */
+        .transport-checkbox-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            text-align: left;
+            margin: 20px 0;
         }
 
         .radio-group {
@@ -711,6 +779,12 @@
             color: #28a745;
             margin-bottom: 20px;
             animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .notice-icon {
+            font-size: 3.5rem;
+            color: #f39c12;
+            margin-bottom: 20px;
         }
 
         .success-content h3 {
@@ -772,6 +846,11 @@
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
 
         .reveal {
             opacity: 0;
@@ -817,6 +896,7 @@
         @media (max-width: 480px) {
             .packages-grid { grid-template-columns: 1fr; }
             .modal-card { padding: 30px 20px; width: 95%; }
+            .transport-checkbox-grid { grid-template-columns: 1fr; gap: 10px; }
         }
     </style>
 </head>
@@ -1003,7 +1083,7 @@
                         </div>
                     </div>
 
-                    <!-- Package 7: Victoria Memorial (Added from Zigzag) -->
+                    <!-- Package 7: Victoria Memorial -->
                     <div class="package-card reveal">
                         <div class="package-img">
                             <span class="package-badge">Heritage</span>
@@ -1026,7 +1106,7 @@
                         </div>
                     </div>
 
-                    <!-- Package 8: Taj Mahal (Added from Zigzag) -->
+                    <!-- Package 8: Taj Mahal -->
                     <div class="package-card reveal" style="transition-delay: 0.1s;">
                         <div class="package-img">
                             <span class="package-badge">Wonder</span>
@@ -1144,16 +1224,27 @@
                     Calculated Duration: <strong id="calc-duration" style="color: var(--deep-blue);">-- Days / -- Nights</strong>
                 </div>
 
-                <!-- Guests Configuration -->
+                <!-- Guests Configuration (Stepper) -->
                 <div class="form-row">
                     <div class="form-group">
                         <label>Adults</label>
-                        <input type="number" id="b-adults" class="form-control" min="1" value="2" required>
+                        <div class="stepper-container">
+                            <button type="button" class="stepper-btn" id="btn-adult-minus"><i class="fas fa-minus"></i></button>
+                            <span class="stepper-value" id="val-adults">2</span>
+                            <button type="button" class="stepper-btn" id="btn-adult-plus"><i class="fas fa-plus"></i></button>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>Children</label>
-                        <input type="number" id="b-children" class="form-control" min="0" value="0" required>
+                        <div class="stepper-container">
+                            <button type="button" class="stepper-btn disabled" id="btn-child-minus"><i class="fas fa-minus"></i></button>
+                            <span class="stepper-value" id="val-children">0</span>
+                            <button type="button" class="stepper-btn" id="btn-child-plus"><i class="fas fa-plus"></i></button>
+                        </div>
                     </div>
+                </div>
+                <div id="guest-warning" class="guest-warning">
+                    <i class="fas fa-exclamation-circle"></i> For more addition, issue another tour package.
                 </div>
 
                 <!-- Transport & Addons -->
@@ -1161,12 +1252,12 @@
                     <label>Travel Mode</label>
                     <div class="radio-group">
                         <label class="radio-option">
-                            <input type="radio" name="b_transport" value="With Flights & Trains added" required>
-                            <span>With Flights & Trains added</span>
+                            <input type="radio" name="b_transport" value="With Transportation" required>
+                            <span>With Transportation (Flights, Trains, Cabs)</span>
                         </label>
                         <label class="radio-option">
-                            <input type="radio" name="b_transport" value="Without Flights & Trains added (i'll arrange own)" checked required>
-                            <span>Without Flights & Trains added (i'll arrange own)</span>
+                            <input type="radio" name="b_transport" value="Without Transportation" checked required>
+                            <span>Without Transportation included (I'll arrange own)</span>
                         </label>
                     </div>
                 </div>
@@ -1176,10 +1267,16 @@
                     <label for="b-cab">Opt-in for Private Cabs (Free from TriQy)</label>
                 </div>
 
-                <!-- Contact -->
-                <div class="form-group" style="margin-top: 10px;">
-                    <label>Your Mobile Number</label>
-                    <input type="tel" id="b-mobile" class="form-control" placeholder="e.g. +91 9876543210" pattern="[0-9+\s\-]+" required>
+                <!-- Contact Info -->
+                <div class="form-row" style="margin-top: 10px;">
+                    <div class="form-group">
+                        <label>Your Mobile Number</label>
+                        <input type="tel" id="b-mobile" class="form-control" placeholder="e.g. +91 9876543210" pattern="[0-9+\s\-]+" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Your Email ID</label>
+                        <input type="email" id="b-email" class="form-control" placeholder="e.g. name@domain.com" required>
+                    </div>
                 </div>
 
                 <!-- Live Price Estimate -->
@@ -1190,6 +1287,51 @@
 
                 <button type="submit" class="btn btn-primary submit-btn">Raise Booking Quotation <i class="fas fa-paper-plane" style="margin-left: 8px;"></i></button>
             </form>
+        </div>
+    </div>
+    
+    <!-- ==========================================================================
+         MODAL 1A: TRANSPORT SELECTION
+         ========================================================================== -->
+    <div class="modal-overlay" id="transport-selection-modal" style="z-index: 10001;">
+        <div class="modal-card modal-card-small">
+            <button class="modal-close" id="close-transport-sel"><i class="fas fa-times"></i></button>
+            <h3 style="font-size: 1.5rem; color: var(--deep-blue); font-family: var(--font-heading); margin-bottom: 10px;">Select Transport Methods</h3>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">Please select how you would like to travel for this package.</p>
+            
+            <div class="transport-checkbox-grid">
+                <div class="checkbox-group" style="padding: 10px;">
+                    <input type="checkbox" id="trans-train" value="Trains">
+                    <label for="trans-train">Trains</label>
+                </div>
+                <div class="checkbox-group" style="padding: 10px;">
+                    <input type="checkbox" id="trans-bus" value="Bus">
+                    <label for="trans-bus">Bus</label>
+                </div>
+                <div class="checkbox-group" style="padding: 10px;">
+                    <input type="checkbox" id="trans-flight" value="Flights">
+                    <label for="trans-flight">Flights</label>
+                </div>
+                <div class="checkbox-group" style="padding: 10px;">
+                    <input type="checkbox" id="trans-cab" value="Cabs">
+                    <label for="trans-cab">Cabs</label>
+                </div>
+            </div>
+            <button type="button" class="btn btn-primary" id="confirm-transport-sel" style="width: 100%;">Confirm Selection</button>
+        </div>
+    </div>
+    
+    <!-- ==========================================================================
+         MODAL 1B: TRANSPORT NOTICE
+         ========================================================================== -->
+    <div class="modal-overlay" id="transport-notice-modal" style="z-index: 10002;">
+        <div class="modal-card modal-card-small">
+            <i class="fas fa-info-circle notice-icon"></i>
+            <h3 style="font-size: 1.6rem; color: var(--deep-blue); font-family: var(--font-heading); margin-bottom: 15px;">Transportation Pricing</h3>
+            <p style="color: var(--text-muted); font-size: 1rem; margin-bottom: 25px; line-height: 1.6;">
+                The transportation costs always keep varying depending on availability and season. Therefore, final transport costs will be finalized and informed to you before 24 hours of departure.
+            </p>
+            <button type="button" class="btn btn-primary" id="ack-transport-notice" style="width: 100%;">I Understand & Agree</button>
         </div>
     </div>
 
@@ -1216,7 +1358,10 @@
                 <li><i class="fas fa-wallet"></i> <strong>Est. Price:</strong> <span id="s-price"></span></li>
             </ul>
             
-            <p style="color: var(--deep-blue); font-weight: 500;">Our team will contact you shortly at <span id="s-mobile" style="color: var(--light-blue);"></span>.</p>
+            <p style="color: var(--deep-blue); font-weight: 500; font-size: 0.95rem;">
+                Our team will contact you shortly at <br>
+                <strong id="s-mobile" style="color: var(--light-blue);"></strong> or <strong id="s-email" style="color: var(--light-blue);"></strong>.
+            </p>
         </div>
     </div>
 
@@ -1265,10 +1410,14 @@
             /* --- 3. Booking Flow Logic & Dynamic Price Calculation --- */
             const bookingModal = document.getElementById('booking-modal');
             const successModal = document.getElementById('success-modal');
+            const transportSelModal = document.getElementById('transport-selection-modal');
+            const transportNoticeModal = document.getElementById('transport-notice-modal');
+            
             const closeBookingBtn = document.getElementById('close-booking');
             const closeSuccessBtn = document.getElementById('close-success');
-            const quoteForm = document.getElementById('quote-form');
+            const closeTransportSelBtn = document.getElementById('close-transport-sel');
             
+            const quoteForm = document.getElementById('quote-form');
             const startInput = document.getElementById('b-start-date');
             const endInput = document.getElementById('b-end-date');
             
@@ -1277,6 +1426,14 @@
             let currentDefaultDays = 1;
             let currentCalculatedDays = 0;
             let currentCalculatedNights = 0;
+            
+            // Stepper Variables
+            let adultsCount = 2;
+            let childrenCount = 0;
+            const MAX_GUESTS = 4;
+            
+            // Selected Transport Details
+            let selectedTransportMethods = [];
 
             // Function to update duration and dynamic price
             function updateDurationAndPrice() {
@@ -1303,7 +1460,7 @@
                     
                     document.getElementById('calc-duration').innerText = `${currentCalculatedDays} Days / ${currentCalculatedNights} Nights`;
 
-                    // Simple algorithm: Per day price based on standard package cost
+                    // Base price logic based on standard package cost
                     const perDayPrice = currentBasePrice / currentDefaultDays;
                     const totalPrice = Math.round(perDayPrice * currentCalculatedDays);
                     document.getElementById('calc-price').innerText = `₹ ${totalPrice.toLocaleString('en-IN')}`;
@@ -1320,7 +1477,95 @@
                 }
             });
             endInput.addEventListener('change', updateDurationAndPrice);
+            
+            /* --- 4. Guest Stepper Logic --- */
+            function updateStepperUI() {
+                document.getElementById('val-adults').innerText = adultsCount;
+                document.getElementById('val-children').innerText = childrenCount;
+                
+                const btnAdultMinus = document.getElementById('btn-adult-minus');
+                const btnAdultPlus = document.getElementById('btn-adult-plus');
+                const btnChildMinus = document.getElementById('btn-child-minus');
+                const btnChildPlus = document.getElementById('btn-child-plus');
+                const warningMsg = document.getElementById('guest-warning');
+                
+                // Minus buttons limits
+                btnAdultMinus.classList.toggle('disabled', adultsCount <= 1);
+                btnChildMinus.classList.toggle('disabled', childrenCount <= 0);
+                
+                // Plus buttons limits
+                btnAdultPlus.classList.toggle('disabled', adultsCount >= MAX_GUESTS);
+                btnChildPlus.classList.toggle('disabled', childrenCount >= MAX_GUESTS);
+                
+                // Warning text logic
+                if (adultsCount >= MAX_GUESTS || childrenCount >= MAX_GUESTS) {
+                    warningMsg.style.display = 'block';
+                } else {
+                    warningMsg.style.display = 'none';
+                }
+            }
+            
+            // Stepper Event Listeners
+            document.getElementById('btn-adult-minus').addEventListener('click', () => {
+                if (adultsCount > 1) { adultsCount--; updateStepperUI(); }
+            });
+            document.getElementById('btn-adult-plus').addEventListener('click', () => {
+                if (adultsCount < MAX_GUESTS) { adultsCount++; updateStepperUI(); }
+                else { document.getElementById('guest-warning').style.display = 'block'; } // Show warning if clicked while disabled
+            });
+            document.getElementById('btn-child-minus').addEventListener('click', () => {
+                if (childrenCount > 0) { childrenCount--; updateStepperUI(); }
+            });
+            document.getElementById('btn-child-plus').addEventListener('click', () => {
+                if (childrenCount < MAX_GUESTS) { childrenCount++; updateStepperUI(); }
+                else { document.getElementById('guest-warning').style.display = 'block'; }
+            });
 
+            /* --- 5. Transport Logic Flow --- */
+            const radioTransportList = document.querySelectorAll('input[name="b_transport"]');
+            
+            radioTransportList.forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    if (e.target.value === "With Transportation") {
+                        // Reset checkboxes before opening
+                        document.querySelectorAll('.transport-checkbox-grid input[type="checkbox"]').forEach(cb => cb.checked = false);
+                        selectedTransportMethods = [];
+                        // Open Step 1 selection modal
+                        transportSelModal.classList.add('active');
+                    } else {
+                        selectedTransportMethods = [];
+                    }
+                });
+            });
+            
+            // Confirm Transport Selection (Modal 1A -> Modal 1B)
+            document.getElementById('confirm-transport-sel').addEventListener('click', () => {
+                const checkboxes = document.querySelectorAll('.transport-checkbox-grid input[type="checkbox"]:checked');
+                selectedTransportMethods = Array.from(checkboxes).map(cb => cb.value);
+                
+                // Close Sel Modal and Open Notice Modal
+                transportSelModal.classList.remove('active');
+                
+                setTimeout(() => {
+                    transportNoticeModal.classList.add('active');
+                }, 300);
+            });
+            
+            // Acknowledge Transport Notice (Modal 1B Close)
+            document.getElementById('ack-transport-notice').addEventListener('click', () => {
+                transportNoticeModal.classList.remove('active');
+                // Form stays on "With Transportation"
+            });
+            
+            // Handle cancel/close of Transport Selection Modal
+            closeTransportSelBtn.addEventListener('click', () => {
+                transportSelModal.classList.remove('active');
+                // Revert radio to Without Transportation
+                document.querySelector('input[value="Without Transportation"]').checked = true;
+                selectedTransportMethods = [];
+            });
+
+            /* --- 6. Form Initialization & Submission --- */
             // Open Booking Modal
             document.querySelectorAll('.btn-book').forEach(button => {
                 button.addEventListener('click', (e) => {
@@ -1345,6 +1590,15 @@
                     minEnd.setDate(minEnd.getDate() + 1);
                     endInput.setAttribute('min', minEnd.toISOString().split('T')[0]);
 
+                    // Reset Guests to default
+                    adultsCount = 2;
+                    childrenCount = 0;
+                    updateStepperUI();
+                    
+                    // Reset Transport Option
+                    document.querySelector('input[value="Without Transportation"]').checked = true;
+                    selectedTransportMethods = [];
+
                     updateDurationAndPrice();
                     bookingModal.classList.add('active');
                 });
@@ -1355,12 +1609,17 @@
                 e.preventDefault();
                 
                 const dateVal = startInput.value;
-                const adultsVal = document.getElementById('b-adults').value;
-                const childrenVal = document.getElementById('b-children').value;
                 const transportVal = document.querySelector('input[name="b_transport"]:checked').value;
                 const cabChecked = document.getElementById('b-cab').checked;
                 const mobileVal = document.getElementById('b-mobile').value;
+                const emailVal = document.getElementById('b-email').value;
                 const finalEstPrice = document.getElementById('calc-price').innerText;
+
+                // Format Transport Display String
+                let transportDisplay = transportVal;
+                if (transportVal === "With Transportation" && selectedTransportMethods.length > 0) {
+                    transportDisplay += ` (${selectedTransportMethods.join(', ')})`;
+                }
 
                 const randId = Math.floor(10000 + Math.random() * 90000);
                 document.getElementById('display-request-id').innerText = `#TRQ-${randId}`;
@@ -1369,13 +1628,16 @@
                 document.getElementById('s-date').innerText = new Date(dateVal).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
                 document.getElementById('s-duration').innerText = `${currentCalculatedDays} Days / ${currentCalculatedNights} Nights`;
                 
-                let guestStr = `${adultsVal} Adult(s)`;
-                if(childrenVal > 0) guestStr += `, ${childrenVal} Child(ren)`;
+                let guestStr = `${adultsCount} Adult(s)`;
+                if(childrenCount > 0) guestStr += `, ${childrenCount} Child(ren)`;
                 document.getElementById('s-guests').innerText = guestStr;
                 
-                document.getElementById('s-transport').innerText = transportVal;
+                document.getElementById('s-transport').innerText = transportDisplay;
                 document.getElementById('s-cab').innerText = cabChecked ? "Opted In (Free)" : "Opted Out";
+                
+                // Contact
                 document.getElementById('s-mobile').innerText = mobileVal;
+                document.getElementById('s-email').innerText = emailVal;
                 document.getElementById('s-price').innerText = finalEstPrice;
 
                 bookingModal.classList.remove('active');
@@ -1384,12 +1646,15 @@
                     successModal.classList.add('active');
                     quoteForm.reset(); 
                     
-                    // Reset to standard options visually
-                    document.querySelector('input[value="Without Flights & Trains added (i\'ll arrange own)"]').checked = true;
+                    // Reset to standard options visually for next opening
+                    adultsCount = 2;
+                    childrenCount = 0;
+                    updateStepperUI();
+                    document.querySelector('input[value="Without Transportation"]').checked = true;
                 }, 300);
             });
 
-            // Close Modals
+            // Close Modals functionality
             closeBookingBtn.addEventListener('click', () => bookingModal.classList.remove('active'));
             closeSuccessBtn.addEventListener('click', () => successModal.classList.remove('active'));
 
@@ -1397,6 +1662,7 @@
             window.addEventListener('click', (e) => {
                 if(e.target === bookingModal) bookingModal.classList.remove('active');
                 if(e.target === successModal) successModal.classList.remove('active');
+                // For sub-modals, closing on outside click can be annoying during forms, so disabling it for them.
             });
 
         });
