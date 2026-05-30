@@ -1262,11 +1262,6 @@
                     </div>
                 </div>
 
-                <div class="checkbox-group">
-                    <input type="checkbox" id="b-cab" checked>
-                    <label for="b-cab">Opt-in for Private Cabs (Free from TriQy)</label>
-                </div>
-
                 <!-- Contact Info -->
                 <div class="form-row" style="margin-top: 10px;">
                     <div class="form-group">
@@ -1354,7 +1349,6 @@
                 <li><i class="fas fa-calendar-alt"></i> <strong>Date & Duration:</strong> <span id="s-date"></span> (<span id="s-duration"></span>)</li>
                 <li><i class="fas fa-users"></i> <strong>Guests:</strong> <span id="s-guests"></span></li>
                 <li><i class="fas fa-plane"></i> <strong>Transport:</strong> <span id="s-transport"></span></li>
-                <li><i class="fas fa-car"></i> <strong>Private Cab:</strong> <span id="s-cab"></span></li>
                 <li><i class="fas fa-wallet"></i> <strong>Est. Price:</strong> <span id="s-price"></span></li>
             </ul>
             
@@ -1610,7 +1604,6 @@
                 
                 const dateVal = startInput.value;
                 const transportVal = document.querySelector('input[name="b_transport"]:checked').value;
-                const cabChecked = document.getElementById('b-cab').checked;
                 const mobileVal = document.getElementById('b-mobile').value;
                 const emailVal = document.getElementById('b-email').value;
                 const finalEstPrice = document.getElementById('calc-price').innerText;
@@ -1633,7 +1626,6 @@
                 document.getElementById('s-guests').innerText = guestStr;
                 
                 document.getElementById('s-transport').innerText = transportDisplay;
-                document.getElementById('s-cab').innerText = cabChecked ? "Opted In (Free)" : "Opted Out";
                 
                 // Contact
                 document.getElementById('s-mobile').innerText = mobileVal;
